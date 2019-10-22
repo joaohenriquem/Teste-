@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	
+	<meta charset="utf8">
+	
+	<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+	<title>Manutenção de arquivos</title>
+	
+	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.js"></script>
+	<script type="text/javascript">
+	
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
+				reader.onload = function (e) {
+					$('#falseinput').attr('src', e.target.result);
+					$('#base').val(e.target.result);
+				};
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+		
+		function downloadFile(){
+			$('#wait').show();
+			let base64 = $('#base').val()
+			var btnDownLoad = $('#download');
+			debugBase64(base64)
+			$('#wait').hide();
+		}
+		
+		function debugBase64(base64){
+			var win = window.open()
+			win.document.write('<iframe src="' + base64  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>')
+		}
+		
+	</script>
+	
+</head>
+
+<body>
+
+	<h1>File Upload</h1>
+	<input id="fileinput" type="file" accept="image/gif, image/jpeg, image/png" onchange="readURL(this);" /> <br><br>
+	<textarea id="base"></textarea>
+	
+	<h1>File Download</h1>
+	<a id="download" onclick="downloadFile();">Baixar Arquivo</a>
+
+</body>
+
+</html>
